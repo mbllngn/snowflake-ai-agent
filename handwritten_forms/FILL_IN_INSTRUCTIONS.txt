@@ -1,0 +1,31 @@
+Print each BLANK form, fill it in by hand with the values below, photograph or scan it,
+and save it as tickets/<ticket no>.pdf (or .jpg), replacing the typed placeholder.
+
+=== PCS-T-7111 (PumpCo Services Inc.) ===
+Date: 15 Sep 2026
+  Person: Edgar Lualhati | Supervisor | 12 hrs
+  Person: Joel Manalo | Pump Operator | 12 hrs
+  Person: Rico Bautista | Pump Operator | 12 hrs
+  Person: Allan Pineda | Helper | 12 hrs
+  Person: Dennis Ocampo | Helper | 12 hrs
+  Equipment: PU-101 | Pump unit | 1 day
+  Quantity: Proppant handled | 30 t
+  Contractor supervisor: SIGN
+  Company Representative: SIGN
+
+=== LCR-T-3306 (Liftmax Crane & Rigging Corp.) ===
+Date: 15 Sep 2026
+  Person: Nestor Villanueva | Crane Operator | 12 hrs
+  Person: Paolo Cruz | Rigger | 12 hrs
+  Equipment: CR-301 | 50-ton crane | 1 day
+  Contractor supervisor: SIGN
+  Company Representative: LEAVE BLANK (planted error E5)
+
+=== AQH-T-0416 (AquaHaul Trucking) ===
+Date: 14 Sep 2026
+  Person: Benjie Santos | Driver | 10 hrs
+  Person: Marlon Reyes | Driver | 10 hrs
+  Quantity: Water hauled, 20 m3 loads | 5 loads
+  Contractor supervisor: SIGN
+  Company Representative: SIGN
+

@@ -1,0 +1,29 @@
+report_date,weather,ops_status,camp_headcount,activities,supervisor_notes,reported_by
+2026-08-31,Fair,NORMAL,24,No field work scheduled.,No incidents.,REP-01
+2026-09-01,Fair,NORMAL,24,"PumpCo pumping ops on PU-101, 27 t proppant. Liftmax crane CR-301 on location for lifts. AquaHaul delivered 5 loads of water.",No incidents.,REP-01
+2026-09-02,Fair,NORMAL,24,"PumpCo pumping ops on PU-101, 27 t proppant. Liftmax crane CR-301 on location for lifts. AquaHaul delivered 6 loads of water. TruLine wireline unit WL-501, 2 runs.",No incidents.,REP-01
+2026-09-03,Heavy rain,SUSPENDED,24,,"Heavy rain from 0500. All field ops suspended. PumpCo PU-101 left rigged up on pad, idle. PumpCo crew released to yard.",REP-01
+2026-09-04,Fair,NORMAL,24,"PumpCo pumping ops on PU-101, 26 t proppant. AquaHaul delivered 4 loads of water.",No incidents.,REP-01
+2026-09-05,Light showers,NORMAL,24,No field work scheduled.,No incidents.,REP-01
+2026-09-06,Partly cloudy,NORMAL,24,No field work scheduled.,No incidents.,REP-01
+2026-09-07,Fair,NORMAL,24,"PumpCo pumping ops on PU-101, 40 t proppant. Liftmax crane CR-301 on location for lifts. AquaHaul delivered 6 loads of water.",No incidents.,REP-01
+2026-09-08,Fair,NORMAL,24,"PumpCo pumping ops on PU-101, 40 t proppant. Liftmax crane CR-301 on location for lifts. AquaHaul delivered 5 loads of water. TruLine wireline unit WL-501, 2 runs.","TruLine crew mobilized from Sto. Tomas Yard, approx. 2 hrs each way. Entered via SECONDARY gate after main road flooding cleared.",REP-01
+2026-09-09,Partly cloudy,NORMAL,24,"PumpCo pumping ops on PU-101, 40 t proppant. Liftmax crane CR-301 on location for lifts. AquaHaul delivered 6 loads of water.",No incidents.,REP-01
+2026-09-10,Typhoon signal no. 2,SUSPENDED,24,,"Typhoon signal no. 2 raised. All field ops suspended. PU-101 remains rigged up on pad, idle. PumpCo crew stood down off location.",REP-01
+2026-09-11,Typhoon signal no. 2,SUSPENDED,24,,Signal no. 2 maintained. Ops remain suspended. PU-101 idle on pad. Camp operating normally.,REP-01
+2026-09-12,Fair,NORMAL,24,AquaHaul delivered 3 loads of water.,No incidents.,REP-01
+2026-09-13,Fair,NORMAL,24,No field work scheduled.,No incidents.,REP-01
+2026-09-14,Partly cloudy,NORMAL,24,"PumpCo pumping ops on PU-101, 30 t proppant. AquaHaul delivered 5 loads of water. TruLine wireline unit WL-501, 3 runs.",No incidents.,REP-01
+2026-09-15,Light showers,NORMAL,24,"PumpCo pumping ops on PU-101, 30 t proppant. Liftmax crane CR-301 on location for lifts. AquaHaul delivered 4 loads of water.",No incidents.,REP-01
+2026-09-16,Fair,NORMAL,24,No field work scheduled.,PumpCo demobilized PU-101. Camp operating normally.,REP-01
+2026-09-17,Partly cloudy,NORMAL,24,No field work scheduled.,No incidents.,REP-01
+2026-09-18,Fair,NORMAL,24,No field work scheduled.,No incidents.,REP-01
+2026-09-19,Fair,NORMAL,24,No field work scheduled.,No incidents.,REP-01
+2026-09-20,Light showers,NORMAL,24,No field work scheduled.,No incidents.,REP-01
+2026-09-21,Fair,NORMAL,0,No field work scheduled.,Camp closed. Crews lodged off-site from this date.,REP-01
+2026-09-22,Fair,NORMAL,0,"PumpCo pumping ops on PU-101, 30 t proppant. Liftmax crane CR-301 on location for lifts. AquaHaul delivered 6 loads of water.",No incidents.,REP-01
+2026-09-23,Partly cloudy,NORMAL,0,"PumpCo pumping ops on PU-101, 30 t proppant. Liftmax crane CR-301 on location for lifts. AquaHaul delivered 5 loads of water. TruLine wireline unit WL-501, 2 runs.",No incidents.,REP-01
+2026-09-24,Fair,NORMAL,0,"PumpCo pumping ops on PU-101, 30 t proppant. AquaHaul delivered 5 loads of water.",No incidents.,REP-01
+2026-09-25,Partly cloudy,NORMAL,0,No field work scheduled.,No incidents.,REP-01
+2026-09-26,Fair,NORMAL,0,No field work scheduled.,No incidents.,REP-01
+2026-09-27,Light showers,NORMAL,0,No field work scheduled.,No incidents.,REP-01

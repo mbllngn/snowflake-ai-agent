@@ -1,0 +1,14 @@
+contractor_code,contractor_name,rate_code,item,unit,rate_php,standby_rate_php,term_start,term_end
+PCS,PumpCo Services Inc.,PCS-EQ-PU,Pump unit (PU-101),day,40000,20000,2026-01-01,2026-12-31
+PCS,PumpCo Services Inc.,PCS-SUP,Supervisor,day,18000,,2026-01-01,2026-12-31
+PCS,PumpCo Services Inc.,PCS-OPR,Pump Operator,day,12000,,2026-01-01,2026-12-31
+PCS,PumpCo Services Inc.,PCS-HLP,Helper,day,7000,,2026-01-01,2026-12-31
+PCS,PumpCo Services Inc.,PCS-PROP,Proppant handling,tonne,1100,,2026-01-01,2026-12-31
+LCR,Liftmax Crane & Rigging Corp.,LCR-EQ-CR,50-ton crane (CR-301),day,35000,17500,2026-01-01,2026-12-31
+LCR,Liftmax Crane & Rigging Corp.,LCR-COP,Crane Operator,day,9500,,2026-01-01,2026-12-31
+LCR,Liftmax Crane & Rigging Corp.,LCR-RIG,Rigger,day,6000,,2026-01-01,2026-12-31
+AQH,AquaHaul Trucking,AQH-LOAD,"Water haul, 20 m3 load",load,4500,,2026-01-01,2026-12-31
+KCS,Kusina Camp Services,KCS-HD,Meals & accommodation,head-day,950,,2026-03-01,2026-09-15
+TLW,TruLine Wireline Services,TLW-RUN,Wireline run,run,28000,,2026-01-01,2026-12-31
+TLW,TruLine Wireline Services,TLW-ENG,Wireline Engineer,hour,1500,,2026-01-01,2026-12-31
+TLW,TruLine Wireline Services,TLW-OPR,Wireline Operator,hour,900,,2026-01-01,2026-12-31

@@ -1,0 +1,14 @@
+tool,question,expected_answer,source
+search,What can a contractor bill for equipment idle on location due to weather?,50% of the day rate; stood-down personnel not billable,4.2
+search,Is travel time billable for contractor personnel?,"Yes, at standard hourly rates, capped at 2 hours each way per day",5.4
+search,Can a contractor charge a fuel surcharge?,No; fuel surcharges are excluded and rates include fuel,7.3; 4.1
+search,What happens if a field ticket is not signed?,Charges are not payable until the ticket is signed by the Company Representative,5.1
+search,When does Kusina Camp Services' contract term end?,15 September 2026; work outside the term is not payable,Exhibit B; 2.1
+search,Can the same field ticket be billed twice?,No; resubmitted tickets are not payable,6.1
+analyst,What was PU-101's status and hours run on 2026-09-10?,"IDLE, 0 hours",equipment_log
+analyst,On which days in the week of 2026-09-07 did PU-101 operate?,"Sep 7, 8, 9",equipment_log
+analyst,Were any PumpCo personnel on site on 2026-09-10 or 2026-09-11?,No,gate_log
+analyst,What role does Paolo Cruz have on Liftmax timesheets?,Rigger,timesheets
+analyst,"How many hours were TruLine personnel on site on 2026-09-08, and through which gate?","10 hours, SECONDARY gate",gate_log
+analyst,What was the camp headcount from 2026-09-16 to 2026-09-20?,24 per day,daily_reports
+analyst,How many AquaHaul water truck trips entered the site on 2026-09-07?,6,gate_log

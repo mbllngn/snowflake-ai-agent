@@ -1,0 +1,42 @@
+ticket_no,contractor_code,ticket_date,signed_by_company_rep,handwritten,scanned,personnel,equipment,quantities,remarks
+PCS-T-7101,PCS,2026-09-01,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 27 t,
+PCS-T-7102,PCS,2026-09-02,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 27 t,
+PCS-T-7103,PCS,2026-09-03,True,False,False,,PU-101 1 day,,Weather. Crew released.
+PCS-T-7104,PCS,2026-09-04,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 27 t,
+LCR-T-3301,LCR,2026-09-01,True,False,False,"Nestor Villanueva (Crane Operator, 12h); Paolo Cruz (Rigger, 12h)",CR-301 1 day,,
+LCR-T-3302,LCR,2026-09-02,True,False,False,"Nestor Villanueva (Crane Operator, 12h); Paolo Cruz (Rigger, 12h)",CR-301 1 day,,
+AQH-T-0409,AQH,2026-09-01,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 5 loads",
+AQH-T-0410,AQH,2026-09-02,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 6 loads",
+AQH-T-0411,AQH,2026-09-04,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 4 loads",
+KCS-T-0051,KCS,2026-08-31,True,False,True,,,Headcount Mon 31 Aug: 24 heads; Headcount Tue 01 Sep: 24 heads; Headcount Wed 02 Sep: 24 heads; Headcount Thu 03 Sep: 24 heads; Headcount Fri 04 Sep: 24 heads; Headcount Sat 05 Sep: 24 heads; Headcount Sun 06 Sep: 24 heads,"Weekly camp headcount sheet, 31 Aug to 06 Sep"
+TLW-T-0880,TLW,2026-09-02,True,False,False,"Carlo Domingo (Wireline Engineer, 9h); Ariel Gomez (Wireline Operator, 9h); Jun Navarro (Wireline Operator, 9h)",WL-501 2 runs,,
+PCS-T-7105,PCS,2026-09-07,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 40 t,
+PCS-T-7106,PCS,2026-09-08,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 40 t,
+PCS-T-7107,PCS,2026-09-09,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 40 t,
+PCS-T-7108,PCS,2026-09-10,True,False,False,,PU-101 1 day,,Weather. Crew released.
+PCS-T-7109,PCS,2026-09-11,True,False,False,,PU-101 1 day,,Weather. Crew released.
+LCR-T-3303,LCR,2026-09-07,True,False,False,"Nestor Villanueva (Crane Operator, 12h); Paolo Cruz (Rigger, 12h)",CR-301 1 day,,
+LCR-T-3304,LCR,2026-09-08,True,False,False,"Nestor Villanueva (Crane Operator, 12h); Paolo Cruz (Rigger, 12h)",CR-301 1 day,,
+LCR-T-3305,LCR,2026-09-09,True,False,False,"Nestor Villanueva (Crane Operator, 12h); Paolo Cruz (Rigger, 12h)",CR-301 1 day,,
+AQH-T-0412,AQH,2026-09-07,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 6 loads",
+AQH-T-0413,AQH,2026-09-08,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 5 loads",
+AQH-T-0414,AQH,2026-09-09,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 6 loads",
+AQH-T-0415,AQH,2026-09-12,True,False,True,"Benjie Santos (Driver, 10h)",,"Water hauled, 20 m3 loads: 3 loads",
+KCS-T-0052,KCS,2026-09-07,True,False,True,,,Headcount Mon 07 Sep: 24 heads; Headcount Tue 08 Sep: 24 heads; Headcount Wed 09 Sep: 24 heads; Headcount Thu 10 Sep: 24 heads; Headcount Fri 11 Sep: 24 heads; Headcount Sat 12 Sep: 24 heads; Headcount Sun 13 Sep: 24 heads,"Weekly camp headcount sheet, 07 Sep to 13 Sep"
+TLW-T-0881,TLW,2026-09-08,True,False,False,"Carlo Domingo (Wireline Engineer, 14h); Ariel Gomez (Wireline Operator, 14h); Jun Navarro (Wireline Operator, 14h)",WL-501 2 runs,,Incl. travel from Sto. Tomas Yard
+PCS-T-7110,PCS,2026-09-14,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 30 t,
+PCS-T-7111,PCS,2026-09-15,True,True,True,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 30 t,
+LCR-T-3306,LCR,2026-09-15,False,True,True,"Nestor Villanueva (Crane Operator, 12h); Paolo Cruz (Rigger, 12h)",CR-301 1 day,,
+AQH-T-0416,AQH,2026-09-14,True,True,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 5 loads",
+AQH-T-0417,AQH,2026-09-15,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 4 loads",
+KCS-T-0053,KCS,2026-09-14,True,False,True,,,Headcount Mon 14 Sep: 24 heads; Headcount Tue 15 Sep: 24 heads; Headcount Wed 16 Sep: 24 heads; Headcount Thu 17 Sep: 24 heads; Headcount Fri 18 Sep: 24 heads; Headcount Sat 19 Sep: 24 heads; Headcount Sun 20 Sep: 24 heads,"Weekly camp headcount sheet, 14 Sep to 20 Sep"
+TLW-T-0882,TLW,2026-09-14,True,False,False,"Carlo Domingo (Wireline Engineer, 11h); Ariel Gomez (Wireline Operator, 11h); Jun Navarro (Wireline Operator, 11h)",WL-501 3 runs,,
+PCS-T-7112,PCS,2026-09-22,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 30 t,
+PCS-T-7113,PCS,2026-09-23,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 30 t,
+PCS-T-7114,PCS,2026-09-24,True,False,False,"Edgar Lualhati (Supervisor, 12h); Joel Manalo (Pump Operator, 12h); Rico Bautista (Pump Operator, 12h); Allan Pineda (Helper, 12h); Dennis Ocampo (Helper, 12h)",PU-101 1 day,Proppant handled: 30 t,
+LCR-T-3307,LCR,2026-09-22,True,False,False,"Nestor Villanueva (Crane Operator, 12h); Paolo Cruz (Rigger, 12h)",CR-301 1 day,,
+LCR-T-3308,LCR,2026-09-23,True,False,False,"Nestor Villanueva (Crane Operator, 12h); Paolo Cruz (Rigger, 12h)",CR-301 1 day,,
+AQH-T-0418,AQH,2026-09-22,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 6 loads",
+AQH-T-0419,AQH,2026-09-23,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 5 loads",
+AQH-T-0420,AQH,2026-09-24,True,False,True,"Benjie Santos (Driver, 10h); Marlon Reyes (Driver, 10h)",,"Water hauled, 20 m3 loads: 5 loads",
+TLW-T-0883,TLW,2026-09-23,True,False,False,"Carlo Domingo (Wireline Engineer, 9h); Ariel Gomez (Wireline Operator, 9h); Jun Navarro (Wireline Operator, 9h)",WL-501 2 runs,,

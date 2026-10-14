@@ -1,0 +1,10 @@
+error_id,contractor_code,week,invoice_no,description,rule,flagged_php,decision,correct_php,overbilled_php,withheld_php,clauses,evidence
+E1a,PCS,W1,PCS-INV-1041,Standby day billed at full pump rate (repeat pattern),site_record_match,40000,correct,20000,20000,0,4.2,equipment_log PU-101 2026-09-03; daily_report 2026-09-03
+E1b,PCS,W2,PCS-INV-1042,HEADLINE: 2 standby days billed at full pump rate,site_record_match,80000,correct,40000,40000,0,4.2,equipment_log PU-101 2026-09-10..11; gate_log PCS crew 2026-09-07..09; daily_report 2026-09-10..11
+E2,LCR,W2,LCR-INV-2208,Rigger billed at Crane Operator rate,rate,10500,confirm,10500,10500,0,4.1,timesheet LCR-W02 role=Rigger; rate_card LCR-RIG 6000
+E3,AQH,W3,AQH-INV-320,"W2 ticket AQH-T-0412 (2026-09-07, 6 loads) resubmitted on W3 invoice",duplicates,27000,confirm,27000,27000,0,6.1,invoice AQH W2 ticket AQH-T-0412
+E4,TLW,W3,TLW-INV-5514,"Line extension wrong (3 x 28,000 shown as 94,000)",math,10000,confirm,10000,10000,0,,invoice line TLW-RUN
+E5,LCR,W3,LCR-INV-2209,Field ticket for 2026-09-15 not signed by Company Rep (HANDWRITTEN),ticket_backing,50500,confirm,50500,0,50500,5.1,ticket LCR 2026-09-15 signature blank
+E6,KCS,W3,KCS-INV-79,Camp services billed after contract term ended 2026-09-15,eligibility,114000,confirm,114000,114000,0,2.1,rate_card KCS term end 2026-09-15
+E7,TLW,W1,TLW-INV-5512,Fuel surcharge added as a separate line,eligibility,15000,confirm,15000,15000,0,7.3; 4.1,
+E8,TLW,W2,TLW-INV-5513,FALSE ALARM: billed 14 hrs vs 10 hrs at gate; difference is allowed travel time,site_record_match,13200,dismiss,0,0,0,5.4,gate_log TLW 2026-09-08 SECONDARY; daily_report 2026-09-08

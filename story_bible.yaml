@@ -1,0 +1,285 @@
+# FIELDAUDIT STORY BIBLE
+# Single source of truth. Every generated file (contract, site records,
+# invoices, tickets, answer key) is derived from this file.
+# Fix problems here and regenerate; never hand-edit outputs.
+
+meta:
+  currency: PHP
+  demo_week: W2
+  weeks:
+    W1: {start: 2026-08-31, end: 2026-09-06}
+    W2: {start: 2026-09-07, end: 2026-09-13}   # demo week
+    W3: {start: 2026-09-14, end: 2026-09-20}
+    W4: {start: 2026-09-21, end: 2026-09-27}   # all clean, baseline
+
+operator:
+  name: Pinnacle Upstream Philippines Inc.
+  site: Bukid Field, Well Pad BK-07
+  company_rep: {id: REP-01, name: Ramon Dizon, title: Company Representative}
+  gates: [MAIN, SECONDARY]
+
+weather:
+  - {date: 2026-09-03, condition: Heavy rain, ops: suspended}
+  - {date: 2026-09-10, condition: Typhoon signal no. 2, ops: suspended}
+  - {date: 2026-09-11, condition: Typhoon signal no. 2, ops: suspended}
+  # Camp (Kusina) keeps serving on suspended days; all field crews stand down.
+
+# ---------------------------------------------------------------- CONTRACT
+contract:
+  title: Master Service Agreement No. PUP-MSA-2026-014
+  effective: 2026-01-01
+  expiry: 2026-12-31
+  clauses:
+    "2.1": {title: Term, text: "Agreement runs from Effective Date to Expiry unless a Contractor Schedule states a shorter term. Charges for work outside the applicable term are not payable."}
+    "4.1": {title: Rates, text: "Work is billed at the rates in Exhibit A. Rates include fuel, consumables, and contractor overhead unless Exhibit A lists an item separately."}
+    "4.2": {title: Standby, text: "Equipment left on location but idle due to weather or Company instruction is billable at 50% of its day rate. Personnel stood down off location are not billable."}
+    "4.3": {title: Minimum Charge, text: "Crane call-outs carry a one-day minimum per mobilization."}
+    "5.1": {title: Field Tickets, text: "Every charge must be supported by a field ticket signed by the Company Representative. Unsigned tickets are not payable until signed."}
+    "5.4": {title: Travel Time, text: "Personnel travel between contractor base and location is billable at standard hourly rates, capped at 2 hours each way per day."}
+    "6.1": {title: Invoicing, text: "Contractor invoices weekly. A field ticket may be billed only once; resubmitted tickets are not payable."}
+    "7.3": {title: Exclusions, text: "The following are not billable: fuel surcharges, mobilization/demobilization unless pre-approved in writing, and meals for contractor personnel housed at Company camp."}
+
+# ------------------------------------------------------------- CONTRACTORS
+contractors:
+  PCS:
+    name: PumpCo Services Inc.
+    base: Sto. Tomas Yard
+    term: {start: 2026-01-01, end: 2026-12-31}
+    rates:
+      - {code: PCS-EQ-PU, item: "Pump unit (PU-101)", unit: day, rate: 40000}
+      - {code: PCS-SUP,   item: Supervisor, unit: day, rate: 18000}
+      - {code: PCS-OPR,   item: Pump Operator, unit: day, rate: 12000}
+      - {code: PCS-HLP,   item: Helper, unit: day, rate: 7000}
+      - {code: PCS-PROP,  item: Proppant handling, unit: tonne, rate: 1100}
+    equipment: [{id: PU-101, type: Pump unit}]
+    crew:
+      - {id: PCS-W01, name: Edgar Lualhati, role: Supervisor}
+      - {id: PCS-W02, name: Joel Manalo, role: Pump Operator}
+      - {id: PCS-W03, name: Rico Bautista, role: Pump Operator}
+      - {id: PCS-W04, name: Allan Pineda, role: Helper}
+      - {id: PCS-W05, name: Dennis Ocampo, role: Helper}
+
+  LCR:
+    name: Liftmax Crane & Rigging Corp.
+    base: Lipa Depot
+    term: {start: 2026-01-01, end: 2026-12-31}
+    rates:
+      - {code: LCR-EQ-CR, item: "50-ton crane (CR-301)", unit: day, rate: 35000}
+      - {code: LCR-COP,   item: Crane Operator, unit: day, rate: 9500}
+      - {code: LCR-RIG,   item: Rigger, unit: day, rate: 6000}
+    equipment: [{id: CR-301, type: 50-ton crane}]
+    crew:
+      - {id: LCR-W01, name: Nestor Villanueva, role: Crane Operator}
+      - {id: LCR-W02, name: Paolo Cruz, role: Rigger}
+
+  AQH:
+    name: AquaHaul Trucking
+    base: Tanauan Yard
+    term: {start: 2026-01-01, end: 2026-12-31}
+    rates:
+      - {code: AQH-LOAD, item: "Water haul, 20 m3 load", unit: load, rate: 4500}
+    equipment: [{id: WT-401, type: Water truck}, {id: WT-402, type: Water truck}]
+    crew:
+      - {id: AQH-W01, name: Benjie Santos, role: Driver}
+      - {id: AQH-W02, name: Marlon Reyes, role: Driver}
+
+  KCS:
+    name: Kusina Camp Services
+    base: On-site camp
+    term: {start: 2026-03-01, end: 2026-09-15}   # extension never executed
+    rates:
+      - {code: KCS-HD, item: "Meals & accommodation", unit: head-day, rate: 950}
+    camp_headcount: 24
+
+  TLW:
+    name: TruLine Wireline Services
+    base: Sto. Tomas Yard
+    term: {start: 2026-01-01, end: 2026-12-31}
+    rates:
+      - {code: TLW-RUN, item: Wireline run, unit: run, rate: 28000}
+      - {code: TLW-ENG, item: Wireline Engineer, unit: hour, rate: 1500}
+      - {code: TLW-OPR, item: Wireline Operator, unit: hour, rate: 900}
+    equipment: [{id: WL-501, type: Wireline unit}]
+    crew:
+      - {id: TLW-W01, name: Carlo Domingo, role: Wireline Engineer}
+      - {id: TLW-W02, name: Ariel Gomez, role: Wireline Operator}
+      - {id: TLW-W03, name: Jun Navarro, role: Wireline Operator}
+
+# --------------------------------------------------- WHAT ACTUALLY HAPPENED
+# Ground truth. Site records are generated from this; clean invoices too.
+activity:
+  PCS:
+    W1:
+      operating: [2026-09-01, 2026-09-02, 2026-09-04]
+      standby_on_location: [2026-09-03]            # rain, pump idle on pad
+      crew_days: 3                                  # full crew each operating day
+      proppant_tonnes: 80
+    W2:
+      operating: [2026-09-07, 2026-09-08, 2026-09-09]
+      standby_on_location: [2026-09-10, 2026-09-11] # typhoon, pump idle on pad
+      crew_days: 3
+      proppant_tonnes: 120
+    W3:
+      operating: [2026-09-14, 2026-09-15]
+      crew_days: 2
+      proppant_tonnes: 60
+      note: Demobilized 2026-09-16
+    W4:
+      operating: [2026-09-22, 2026-09-23, 2026-09-24]
+      crew_days: 3
+      proppant_tonnes: 90
+  LCR:
+    W1: {operating: [2026-09-01, 2026-09-02]}
+    W2: {operating: [2026-09-07, 2026-09-08, 2026-09-09]}
+    W3: {operating: [2026-09-15]}
+    W4: {operating: [2026-09-22, 2026-09-23]}
+  AQH:
+    # one ticket per day; loads per day
+    W1: {loads: {2026-09-01: 5, 2026-09-02: 6, 2026-09-04: 4}}
+    W2: {loads: {2026-09-07: 6, 2026-09-08: 5, 2026-09-09: 6, 2026-09-12: 3}}
+    W3: {loads: {2026-09-14: 5, 2026-09-15: 4}}
+    W4: {loads: {2026-09-22: 6, 2026-09-23: 5, 2026-09-24: 5}}
+  KCS:
+    # serves every day of every week in which the camp is open
+    W1: {days: all, headcount: 24}
+    W2: {days: all, headcount: 24}
+    W3: {days: all, headcount: 24}   # Sep 16-20 falls after term end
+  TLW:
+    W1: {runs: {2026-09-02: 2}, hours_on_site: 9, travel_hours_each_way: 0}
+    W2: {runs: {2026-09-08: 2}, hours_on_site: 10, travel_hours_each_way: 2}
+    W3: {runs: {2026-09-14: 3}, hours_on_site: 11, travel_hours_each_way: 0}
+    W4: {runs: {2026-09-23: 2}, hours_on_site: 9, travel_hours_each_way: 0}
+
+daily_report_notes:
+  2026-09-03: "Heavy rain from 0500. All field ops suspended. PumpCo PU-101 left rigged up on pad, idle. PumpCo crew released to yard."
+  2026-09-08: "TruLine crew mobilized from Sto. Tomas Yard, approx. 2 hrs each way. Entered via SECONDARY gate after main road flooding cleared."
+  2026-09-10: "Typhoon signal no. 2 raised. All field ops suspended. PU-101 remains rigged up on pad, idle. PumpCo crew stood down off location."
+  2026-09-11: "Signal no. 2 maintained. Ops remain suspended. PU-101 idle on pad. Camp operating normally."
+  2026-09-16: "PumpCo demobilized PU-101. Camp operating normally."
+
+# ---------------------------------------------------------- PLANTED ERRORS
+# Applied on top of clean invoices. Toggle `enabled` to test a clean baseline.
+errors:
+  - id: E1a
+    enabled: true
+    contractor: PCS
+    week: W1
+    description: Standby day billed at full pump rate (repeat pattern)
+    mutation: {line: PCS-EQ-PU, billed_qty: 4, billed_rate: 40000}
+    rule: site_record_match
+    flagged_php: 40000          # 1 day with 0 equipment hours x 40,000
+    decision: correct
+    correct_php: 20000          # 50% standby per 4.2
+    overbilled_php: 20000
+    evidence: {clauses: ["4.2"], records: ["equipment_log PU-101 2026-09-03", "daily_report 2026-09-03"]}
+
+  - id: E1b
+    enabled: true
+    contractor: PCS
+    week: W2
+    description: "HEADLINE: 2 standby days billed at full pump rate"
+    mutation: {line: PCS-EQ-PU, billed_qty: 5, billed_rate: 40000}
+    rule: site_record_match
+    flagged_php: 80000
+    decision: correct
+    correct_php: 40000
+    overbilled_php: 40000
+    evidence: {clauses: ["4.2"], records: ["equipment_log PU-101 2026-09-10..11", "gate_log PCS crew 2026-09-07..09", "daily_report 2026-09-10..11"]}
+    # Invoice total check: 200,000 pump + 168,000 crew + 132,000 proppant = 500,000
+
+  - id: E2
+    enabled: true
+    contractor: LCR
+    week: W2
+    description: Rigger billed at Crane Operator rate
+    mutation: {worker: LCR-W02, billed_code: LCR-COP, billed_rate: 9500, days: 3}
+    rule: rate
+    flagged_php: 10500
+    decision: confirm
+    correct_php: 10500
+    overbilled_php: 10500
+    evidence: {clauses: ["4.1"], records: ["timesheet LCR-W02 role=Rigger", "rate_card LCR-RIG 6000"]}
+
+  - id: E3
+    enabled: true
+    contractor: AQH
+    week: W3
+    description: W2 ticket AQH-T-0412 (2026-09-07, 6 loads) resubmitted on W3 invoice
+    mutation: {append_ticket_from: W2, ticket_date: 2026-09-07}
+    rule: duplicates
+    flagged_php: 27000
+    decision: confirm
+    correct_php: 27000
+    overbilled_php: 27000
+    evidence: {clauses: ["6.1"], records: ["invoice AQH W2 ticket AQH-T-0412"]}
+
+  - id: E4
+    enabled: true
+    contractor: TLW
+    week: W3
+    description: Line extension wrong (3 x 28,000 shown as 94,000)
+    mutation: {line: TLW-RUN, billed_qty: 3, billed_rate: 28000, line_total: 94000}
+    rule: math
+    flagged_php: 10000
+    decision: confirm
+    correct_php: 10000
+    overbilled_php: 10000
+    evidence: {clauses: [], records: ["invoice line TLW-RUN"]}
+
+  - id: E5
+    enabled: true
+    contractor: LCR
+    week: W3
+    description: Field ticket for 2026-09-15 not signed by Company Rep (HANDWRITTEN)
+    mutation: {ticket_date: 2026-09-15, signed: false, format: handwritten}
+    rule: ticket_backing
+    flagged_php: 50500          # crane 35,000 + operator 9,500 + rigger 6,000
+    decision: confirm           # hold until signed
+    correct_php: 50500
+    overbilled_php: 0           # withheld, not overbilled
+    evidence: {clauses: ["5.1"], records: ["ticket LCR 2026-09-15 signature blank"]}
+
+  - id: E6
+    enabled: true
+    contractor: KCS
+    week: W3
+    description: Camp services billed after contract term ended 2026-09-15
+    mutation: {none: "invoice is accurate to activity; term is the problem"}
+    rule: eligibility
+    flagged_php: 114000         # Sep 16-20: 5 days x 24 heads x 950
+    decision: confirm
+    correct_php: 114000
+    overbilled_php: 114000
+    evidence: {clauses: ["2.1"], records: ["rate_card KCS term end 2026-09-15"]}
+
+  - id: E7
+    enabled: true
+    contractor: TLW
+    week: W1
+    description: Fuel surcharge added as a separate line
+    mutation: {add_line: {item: Fuel surcharge, unit: lot, qty: 1, rate: 15000}}
+    rule: eligibility
+    flagged_php: 15000
+    decision: confirm
+    correct_php: 15000
+    overbilled_php: 15000
+    evidence: {clauses: ["7.3", "4.1"], records: []}
+
+  - id: E8
+    enabled: true
+    contractor: TLW
+    week: W2
+    description: "FALSE ALARM: billed 14 hrs vs 10 hrs at gate; difference is allowed travel time"
+    mutation: {none: "invoice bills 10 on-site + 4 travel = 14 hrs per person"}
+    rule: site_record_match
+    flagged_php: 13200          # 4 hrs x (1,500 + 2 x 900)
+    decision: dismiss
+    correct_php: 0
+    overbilled_php: 0
+    evidence: {clauses: ["5.4"], records: ["gate_log TLW 2026-09-08 SECONDARY", "daily_report 2026-09-08"]}
+
+# Expected totals (for sanity checks)
+# Rule-flagged: 360,200   Agent-confirmed/corrected: 287,000
+# Overbilled (excl. E5 hold): 236,500   Withheld pending signature: 50,500
+# Invoices: 19 (KCS has no W4). Errors on 9 of them (E5 shares an invoice
+# with nothing else; E3/E4/E5/E6 all land in W3, the "messy week").
