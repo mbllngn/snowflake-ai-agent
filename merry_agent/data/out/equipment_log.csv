@@ -1,0 +1,32 @@
+log_date,equipment_id,contractor_code,status,hours_run,remarks
+2026-09-01,CR-301,LCR,OPERATING,7.8,Lifts per Company direction
+2026-09-01,PU-101,PCS,OPERATING,9.8,Proppant pumped: 27 t
+2026-09-02,CR-301,LCR,OPERATING,9.2,Lifts per Company direction
+2026-09-02,PU-101,PCS,OPERATING,9.3,Proppant pumped: 27 t
+2026-09-02,WL-501,TLW,OPERATING,8,2 wireline runs
+2026-09-03,PU-101,PCS,IDLE,0,
+2026-09-04,PU-101,PCS,OPERATING,9.9,Proppant pumped: 26 t
+2026-09-05,PU-101,PCS,OFF_HIRE,0,No work scheduled
+2026-09-06,PU-101,PCS,OFF_HIRE,0,No work scheduled
+2026-09-07,CR-301,LCR,OPERATING,7.7,Lifts per Company direction
+2026-09-07,PU-101,PCS,OPERATING,9.2,Proppant pumped: 40 t
+2026-09-08,CR-301,LCR,OPERATING,9.3,Lifts per Company direction
+2026-09-08,PU-101,PCS,OPERATING,9.7,Proppant pumped: 40 t
+2026-09-08,WL-501,TLW,OPERATING,9,2 wireline runs
+2026-09-09,CR-301,LCR,OPERATING,7.5,Lifts per Company direction
+2026-09-09,PU-101,PCS,OPERATING,9.1,Proppant pumped: 40 t
+2026-09-10,PU-101,PCS,IDLE,0,
+2026-09-11,PU-101,PCS,IDLE,0,
+2026-09-12,PU-101,PCS,OFF_HIRE,0,No work scheduled
+2026-09-13,PU-101,PCS,OFF_HIRE,0,No work scheduled
+2026-09-14,PU-101,PCS,OPERATING,10.0,Proppant pumped: 30 t
+2026-09-14,WL-501,TLW,OPERATING,10,3 wireline runs
+2026-09-15,CR-301,LCR,OPERATING,8.2,Lifts per Company direction
+2026-09-15,PU-101,PCS,OPERATING,8.8,Proppant pumped: 30 t
+2026-09-16,PU-101,PCS,DEMOBILIZED,0,Rigged down and released
+2026-09-22,CR-301,LCR,OPERATING,9.9,Lifts per Company direction
+2026-09-22,PU-101,PCS,OPERATING,9.6,Proppant pumped: 30 t
+2026-09-23,CR-301,LCR,OPERATING,9.0,Lifts per Company direction
+2026-09-23,PU-101,PCS,OPERATING,10.2,Proppant pumped: 30 t
+2026-09-23,WL-501,TLW,OPERATING,8,2 wireline runs
+2026-09-24,PU-101,PCS,OPERATING,10.3,Proppant pumped: 30 t

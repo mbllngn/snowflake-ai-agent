@@ -1,0 +1,79 @@
+"""MERRY shared SQL binding helper (step 12c close-out, D27.15). One copy, used by the Streamlit app (common.q) and by
+every MERRY Python procedure (IMPORTS = ('@{{DB}}.APP.APP_STAGE/lib/merry_sql.py'), then session = guard(session)).
+
+Why: in Snowflake's server-side Python runtime (procedures and the warehouse Streamlit runtime), Snowpark binds a
+Python None parameter as the text 'None', not SQL NULL (checked 2026-10-26: SELECT ? IS NULL with None returned FALSE
+and the text 'None'). null_binds() writes NULL into the SQL text for every None parameter instead.
+Deployed by 12_review/15_deploy_lib.sql to @{{DB}}.APP.APP_STAGE/lib/."""
+
+
+def null_binds(sql, params):
+    """(sql, params) with every None parameter replaced by a literal NULL in the SQL. '?' inside '...', "..." and
+    $$...$$ is left alone. Returns params unchanged when nothing is None."""
+    if not params or all(p is not None for p in params):
+        return sql, params
+    out, it, kept, quote, i = [], iter(params), [], None, 0
+    while i < len(sql):
+        if quote:
+            if sql.startswith(quote, i):
+                out.append(quote)
+                i += len(quote)
+                quote = None
+            else:
+                out.append(sql[i])
+                i += 1
+            continue
+        for q in ("$$", "'", '"'):
+            if sql.startswith(q, i):
+                quote = q
+                break
+        if quote:
+            out.append(quote)
+            i += len(quote)
+            continue
+        if sql[i] == "?":
+            v = next(it)
+            if v is None:
+                out.append("NULL")
+            else:
+                kept.append(v)
+                out.append("?")
+        else:
+            out.append(sql[i])
+        i += 1
+    return "".join(out), kept
+
+
+class guard:
+    """A Snowpark Session whose .sql() applies null_binds; everything else is the real session."""
+
+    def __init__(self, session):
+        self._s = session._s if isinstance(session, guard) else session
+
+    def sql(self, query, params=None, *args, **kwargs):
+        q, p = null_binds(query, params)
+        return self._s.sql(q, *args, params=p, **kwargs)
+
+    def __getattr__(self, name):
+        return getattr(self._s, name)
+
+
+# Step 12d (D28): every chat post touches its thread. One statement shared by the app (review.post) and the worker
+# (SP_RUN_JOBS.post). Params: thread_id, created_by, thread_id. Threads without a contract (_INTAKE) are skipped.
+TOUCH_THREAD = """MERGE INTO {{DB}}.APP.THREADS t
+USING (SELECT ? AS thread_id, c.contract_id, ? AS created_by FROM {{DB}}.CONTRACT.CONTRACTS c
+       WHERE c.contract_id = SPLIT_PART(?, '#', 1)) s ON t.thread_id = s.thread_id
+WHEN MATCHED THEN UPDATE SET last_message_at = CURRENT_TIMESTAMP()::TIMESTAMP_NTZ
+WHEN NOT MATCHED THEN INSERT (thread_id, contract_id, title, created_by, created_at, last_message_at)
+  VALUES (s.thread_id, s.contract_id, NULL, s.created_by, CURRENT_TIMESTAMP()::TIMESTAMP_NTZ,
+          CURRENT_TIMESTAMP()::TIMESTAMP_NTZ)"""
+
+
+def run_thread(session, contract_id, run_id, thread_id=None):
+    """The thread a range run reports to: the job's thread_id, else the thread holding its RUN message, else the
+    contract's first thread (D28)."""
+    if thread_id:
+        return thread_id
+    r = session.sql("""SELECT thread_id FROM {{DB}}.APP.CHAT_MESSAGES WHERE msg_type = 'RUN' AND payload:run_id::STRING = ?
+                       ORDER BY seq LIMIT 1""", params=[run_id]).collect() if run_id else []
+    return r[0]['THREAD_ID'] if r else contract_id

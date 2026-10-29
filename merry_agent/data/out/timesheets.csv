@@ -1,0 +1,107 @@
+work_date,worker_id,worker_name,contractor_code,role,hours,approved_by
+2026-09-01,AQH-W01,Benjie Santos,AQH,Driver,9.9,REP-01
+2026-09-01,AQH-W02,Marlon Reyes,AQH,Driver,10.1,REP-01
+2026-09-01,LCR-W01,Nestor Villanueva,LCR,Crane Operator,12.1,REP-01
+2026-09-01,LCR-W02,Paolo Cruz,LCR,Rigger,12.0,REP-01
+2026-09-01,PCS-W01,Edgar Lualhati,PCS,Supervisor,12.0,REP-01
+2026-09-01,PCS-W02,Joel Manalo,PCS,Pump Operator,11.9,REP-01
+2026-09-01,PCS-W03,Rico Bautista,PCS,Pump Operator,11.9,REP-01
+2026-09-01,PCS-W04,Allan Pineda,PCS,Helper,12.1,REP-01
+2026-09-01,PCS-W05,Dennis Ocampo,PCS,Helper,12.1,REP-01
+2026-09-02,AQH-W01,Benjie Santos,AQH,Driver,10.2,REP-01
+2026-09-02,AQH-W02,Marlon Reyes,AQH,Driver,10.2,REP-01
+2026-09-02,LCR-W01,Nestor Villanueva,LCR,Crane Operator,12.1,REP-01
+2026-09-02,LCR-W02,Paolo Cruz,LCR,Rigger,12.0,REP-01
+2026-09-02,PCS-W01,Edgar Lualhati,PCS,Supervisor,11.9,REP-01
+2026-09-02,PCS-W02,Joel Manalo,PCS,Pump Operator,11.9,REP-01
+2026-09-02,PCS-W03,Rico Bautista,PCS,Pump Operator,12.2,REP-01
+2026-09-02,PCS-W04,Allan Pineda,PCS,Helper,12.1,REP-01
+2026-09-02,PCS-W05,Dennis Ocampo,PCS,Helper,12.2,REP-01
+2026-09-02,TLW-W01,Carlo Domingo,TLW,Wireline Engineer,9,REP-01
+2026-09-02,TLW-W02,Ariel Gomez,TLW,Wireline Operator,9,REP-01
+2026-09-02,TLW-W03,Jun Navarro,TLW,Wireline Operator,9,REP-01
+2026-09-04,AQH-W01,Benjie Santos,AQH,Driver,10.0,REP-01
+2026-09-04,AQH-W02,Marlon Reyes,AQH,Driver,10.0,REP-01
+2026-09-04,PCS-W01,Edgar Lualhati,PCS,Supervisor,11.9,REP-01
+2026-09-04,PCS-W02,Joel Manalo,PCS,Pump Operator,12.1,REP-01
+2026-09-04,PCS-W03,Rico Bautista,PCS,Pump Operator,11.8,REP-01
+2026-09-04,PCS-W04,Allan Pineda,PCS,Helper,11.9,REP-01
+2026-09-04,PCS-W05,Dennis Ocampo,PCS,Helper,12.1,REP-01
+2026-09-07,AQH-W01,Benjie Santos,AQH,Driver,10.1,REP-01
+2026-09-07,AQH-W02,Marlon Reyes,AQH,Driver,9.9,REP-01
+2026-09-07,LCR-W01,Nestor Villanueva,LCR,Crane Operator,12.1,REP-01
+2026-09-07,LCR-W02,Paolo Cruz,LCR,Rigger,11.9,REP-01
+2026-09-07,PCS-W01,Edgar Lualhati,PCS,Supervisor,11.9,REP-01
+2026-09-07,PCS-W02,Joel Manalo,PCS,Pump Operator,12.0,REP-01
+2026-09-07,PCS-W03,Rico Bautista,PCS,Pump Operator,11.9,REP-01
+2026-09-07,PCS-W04,Allan Pineda,PCS,Helper,11.9,REP-01
+2026-09-07,PCS-W05,Dennis Ocampo,PCS,Helper,12.0,REP-01
+2026-09-08,AQH-W01,Benjie Santos,AQH,Driver,10.0,REP-01
+2026-09-08,AQH-W02,Marlon Reyes,AQH,Driver,10.2,REP-01
+2026-09-08,LCR-W01,Nestor Villanueva,LCR,Crane Operator,11.9,REP-01
+2026-09-08,LCR-W02,Paolo Cruz,LCR,Rigger,12.2,REP-01
+2026-09-08,PCS-W01,Edgar Lualhati,PCS,Supervisor,11.8,REP-01
+2026-09-08,PCS-W02,Joel Manalo,PCS,Pump Operator,12.1,REP-01
+2026-09-08,PCS-W03,Rico Bautista,PCS,Pump Operator,11.9,REP-01
+2026-09-08,PCS-W04,Allan Pineda,PCS,Helper,12.0,REP-01
+2026-09-08,PCS-W05,Dennis Ocampo,PCS,Helper,12.1,REP-01
+2026-09-08,TLW-W01,Carlo Domingo,TLW,Wireline Engineer,14,REP-01
+2026-09-08,TLW-W02,Ariel Gomez,TLW,Wireline Operator,14,REP-01
+2026-09-08,TLW-W03,Jun Navarro,TLW,Wireline Operator,14,REP-01
+2026-09-09,AQH-W01,Benjie Santos,AQH,Driver,10.1,REP-01
+2026-09-09,AQH-W02,Marlon Reyes,AQH,Driver,10.1,REP-01
+2026-09-09,LCR-W01,Nestor Villanueva,LCR,Crane Operator,12.1,REP-01
+2026-09-09,LCR-W02,Paolo Cruz,LCR,Rigger,11.9,REP-01
+2026-09-09,PCS-W01,Edgar Lualhati,PCS,Supervisor,12.2,REP-01
+2026-09-09,PCS-W02,Joel Manalo,PCS,Pump Operator,12.0,REP-01
+2026-09-09,PCS-W03,Rico Bautista,PCS,Pump Operator,11.9,REP-01
+2026-09-09,PCS-W04,Allan Pineda,PCS,Helper,11.9,REP-01
+2026-09-09,PCS-W05,Dennis Ocampo,PCS,Helper,11.9,REP-01
+2026-09-12,AQH-W01,Benjie Santos,AQH,Driver,10.1,REP-01
+2026-09-14,AQH-W01,Benjie Santos,AQH,Driver,10.1,REP-01
+2026-09-14,AQH-W02,Marlon Reyes,AQH,Driver,10.1,REP-01
+2026-09-14,PCS-W01,Edgar Lualhati,PCS,Supervisor,11.9,REP-01
+2026-09-14,PCS-W02,Joel Manalo,PCS,Pump Operator,11.9,REP-01
+2026-09-14,PCS-W03,Rico Bautista,PCS,Pump Operator,12.0,REP-01
+2026-09-14,PCS-W04,Allan Pineda,PCS,Helper,12.2,REP-01
+2026-09-14,PCS-W05,Dennis Ocampo,PCS,Helper,12.0,REP-01
+2026-09-14,TLW-W01,Carlo Domingo,TLW,Wireline Engineer,11,REP-01
+2026-09-14,TLW-W02,Ariel Gomez,TLW,Wireline Operator,11,REP-01
+2026-09-14,TLW-W03,Jun Navarro,TLW,Wireline Operator,11,REP-01
+2026-09-15,AQH-W01,Benjie Santos,AQH,Driver,10.2,REP-01
+2026-09-15,AQH-W02,Marlon Reyes,AQH,Driver,9.9,REP-01
+2026-09-15,LCR-W01,Nestor Villanueva,LCR,Crane Operator,12.1,REP-01
+2026-09-15,LCR-W02,Paolo Cruz,LCR,Rigger,12.0,REP-01
+2026-09-15,PCS-W01,Edgar Lualhati,PCS,Supervisor,11.9,REP-01
+2026-09-15,PCS-W02,Joel Manalo,PCS,Pump Operator,12.0,REP-01
+2026-09-15,PCS-W03,Rico Bautista,PCS,Pump Operator,12.2,REP-01
+2026-09-15,PCS-W04,Allan Pineda,PCS,Helper,12.2,REP-01
+2026-09-15,PCS-W05,Dennis Ocampo,PCS,Helper,11.9,REP-01
+2026-09-22,AQH-W01,Benjie Santos,AQH,Driver,9.9,REP-01
+2026-09-22,AQH-W02,Marlon Reyes,AQH,Driver,9.9,REP-01
+2026-09-22,LCR-W01,Nestor Villanueva,LCR,Crane Operator,11.8,REP-01
+2026-09-22,LCR-W02,Paolo Cruz,LCR,Rigger,11.9,REP-01
+2026-09-22,PCS-W01,Edgar Lualhati,PCS,Supervisor,11.9,REP-01
+2026-09-22,PCS-W02,Joel Manalo,PCS,Pump Operator,12.0,REP-01
+2026-09-22,PCS-W03,Rico Bautista,PCS,Pump Operator,12.2,REP-01
+2026-09-22,PCS-W04,Allan Pineda,PCS,Helper,12.1,REP-01
+2026-09-22,PCS-W05,Dennis Ocampo,PCS,Helper,12.0,REP-01
+2026-09-23,AQH-W01,Benjie Santos,AQH,Driver,9.9,REP-01
+2026-09-23,AQH-W02,Marlon Reyes,AQH,Driver,10.1,REP-01
+2026-09-23,LCR-W01,Nestor Villanueva,LCR,Crane Operator,12.0,REP-01
+2026-09-23,LCR-W02,Paolo Cruz,LCR,Rigger,12.2,REP-01
+2026-09-23,PCS-W01,Edgar Lualhati,PCS,Supervisor,11.8,REP-01
+2026-09-23,PCS-W02,Joel Manalo,PCS,Pump Operator,11.8,REP-01
+2026-09-23,PCS-W03,Rico Bautista,PCS,Pump Operator,12.0,REP-01
+2026-09-23,PCS-W04,Allan Pineda,PCS,Helper,12.0,REP-01
+2026-09-23,PCS-W05,Dennis Ocampo,PCS,Helper,11.9,REP-01
+2026-09-23,TLW-W01,Carlo Domingo,TLW,Wireline Engineer,9,REP-01
+2026-09-23,TLW-W02,Ariel Gomez,TLW,Wireline Operator,9,REP-01
+2026-09-23,TLW-W03,Jun Navarro,TLW,Wireline Operator,9,REP-01
+2026-09-24,AQH-W01,Benjie Santos,AQH,Driver,10.1,REP-01
+2026-09-24,AQH-W02,Marlon Reyes,AQH,Driver,10.1,REP-01
+2026-09-24,PCS-W01,Edgar Lualhati,PCS,Supervisor,12.0,REP-01
+2026-09-24,PCS-W02,Joel Manalo,PCS,Pump Operator,12.2,REP-01
+2026-09-24,PCS-W03,Rico Bautista,PCS,Pump Operator,12.0,REP-01
+2026-09-24,PCS-W04,Allan Pineda,PCS,Helper,12.2,REP-01
+2026-09-24,PCS-W05,Dennis Ocampo,PCS,Helper,11.9,REP-01
