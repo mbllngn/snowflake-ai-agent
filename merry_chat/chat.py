@@ -332,6 +332,18 @@ def batch_summary(rows, cid):
             where = f"under **{fmt_range([it['filed_period']])}**" if it.get("filed_period") else "already"
             out["text"].append(f"{name} has the same content as {it.get('duplicate_name')}, filed {where}. "
                                f"I ignored the new copy.")
+        elif st_ == "UNREADABLE":
+            why = {"TYPE": "I couldn't tell what kind of document it is",
+                   "CONTRACT": "I couldn't match it to a contract",
+                   "DATES": "I couldn't read its dates"}.get(it.get("reason"), "I couldn't read it")
+            out["text"].append(f"**{name}**: {why}, so I didn't audit it. It's listed in the Issues tab.")
+        elif st_ == "FILED" and it.get("replaces"):
+            rp = it["replaces"]
+            out["text"].append(f"{name} replaced the earlier copy with the same name"
+                               + (f" (filed under {fmt_range([rp['period']])})" if rp.get("period") else "")
+                               + "; the earlier copy is kept but no longer audited.")
+        elif st_ == "FILED" and it.get("replaces_unreadable"):
+            out["text"].append(f"{name} is a readable copy of a file I couldn't read before, so that issue is closed.")
         elif st_ == "ASK_TYPE":
             out["text"].append(f"I couldn't tell what **{name}** is.")
         elif st_ == "ASK_CONTRACT":

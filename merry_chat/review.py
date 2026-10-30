@@ -265,7 +265,7 @@ def site_records_through():
 
 
 def contract_card(cid):
-    c = q("""SELECT c.contract_id, c.title, c.status, c.confirmation_mode,
+    c = q("""SELECT c.contract_id, c.title, c.status, c.confirmation_mode, c.confirmed_by,
                     (SELECT COUNT(*) FROM MERRY.CONTRACT.CONTRACTORS k WHERE k.contract_id = c.contract_id) n_ctr,
                     (SELECT LISTAGG(contractor_name, ', ') WITHIN GROUP (ORDER BY contractor_code)
                        FROM MERRY.CONTRACT.CONTRACTORS k WHERE k.contract_id = c.contract_id) ctr_names,
@@ -288,6 +288,10 @@ def contract_card(cid):
     if c["STATUS"] == "CONFIRMED" and c["CONFIRMATION_MODE"] == "AS_EXTRACTED_AUTO":
         st.markdown(f"**{cid}** has no rate warnings, so I confirmed it as extracted, automatically. You can still change "
                     f"any value in Documents.")
+    elif c["STATUS"] == "CONFIRMED" and c["CONFIRMED_BY"] == "MERRY":
+        st.markdown(f"I read and confirmed **{cid}** automatically. Noted: {c['N_WARN']} rate warning"
+                    f"{'s' if c['N_WARN'] != 1 else ''} (a printed standby rate that doesn't match the standby percentage; "
+                    f"I use the percentage). You can still change any value in Documents.")
     elif c["STATUS"] == "CONFIRMED":
         st.markdown(f"**{cid}** is confirmed"
                     + (" after review." if c["CONFIRMATION_MODE"] == "REVIEWED" else " as extracted."))
@@ -628,6 +632,10 @@ def render_letter(r, live, firmer):
                     f"It covers every finding on the invoice.")
     if not live:
         st.caption(f"Letter for {inv}: the latest copy is further down.")
+        return
+    if r["STATUS"] != "APPROVED":                 # decisions are made in the Issues tab; the chat only shows the draft
+        st.text(r["LETTER_TEXT"] or "")
+        st.caption("Draft. It is approved and saved as a PDF once every issue on this invoice is settled in the Issues tab.")
         return
     if r["STATUS"] == "APPROVED":
         st.text(r["LETTER_TEXT"] or "")
@@ -1721,14 +1729,41 @@ def render_message(tid, cid, m, live_letter, last_agent_seq):
                     f"(was {php(p.get('pay_before'))})."
                     + (" The approved letter stays in the history, and I've drafted a new version." if p.get("was_approved")
                        else " I redrafted the letter."))
-    elif k == "CHANGE_FORM":
-        render_change_form(tid, cid, p, m["seq"] == last_agent_seq)
+    elif k == "CHANGE_FORM":                       # older threads: decisions are now changed in the Issues tab
+        st.caption("Decisions are changed in the Issues tab.")
     elif k == "ANSWER":
         render_answer(p, f"{tid}:{m['seq']}")
     elif k == "EXPLAIN_LEGACY" or k in ("LETTER_INTRO",):
         st.caption(f"{k.replace('_', ' ').lower()}: {p.get('invoice_no')}")
     else:
         st.markdown(md_safe(php_to_peso(p.get("text"))))
+
+
+def render_issues_pointer(cid):
+    """Under the latest MERRY message: what needs the analyst, with amounts from SQL, and where to act (the Issues tab).
+    The chat is an activity history: it has no decision buttons."""
+    if not cid:
+        return
+    rows = q("""SELECT f.source_doc, f.rule_type, f.impact_php, r.resolution_type
+                FROM MERRY.APP.V_UI_FLAGS f
+                LEFT JOIN MERRY.AUDIT.V_RESOLUTIONS r ON r.contract_id = f.contract_id AND r.invoice_no = f.source_doc
+                WHERE f.contract_id = ? AND f.status = 'OPEN'
+                ORDER BY f.source_doc""", [cid])
+    if not rows:
+        return
+    by_doc = {}
+    for r in rows:
+        d = by_doc.setdefault(r["SOURCE_DOC"], {"n": 0, "amt": 0.0, "kind": r["RESOLUTION_TYPE"], "unread": False})
+        d["n"] += 1
+        d["amt"] += float(r["IMPACT_PHP"] or 0)
+        d["unread"] = d["unread"] or r["RULE_TYPE"] == "UNREADABLE"
+    word = {"HOLD": "on hold", "DISPUTE": "disputed", "DISPUTE_AND_HOLD": "disputed or on hold"}
+    parts = [f"{doc}: couldn't be read" if d["unread"] else
+             f"{doc}: {php(d['amt'])} {word.get(d['kind'], 'flagged')}" for doc, d in list(by_doc.items())[:4]]
+    more = f" and {len(by_doc) - 4} more" if len(by_doc) > 4 else ""
+    n = len(rows)
+    st.info(f"{n} issue{'s' if n != 1 else ''} need{'s' if n == 1 else ''} you ({'; '.join(parts)}{more}). "
+            "Review them in the **Issues** tab.")
 
 
 def render_suggestions(tid, cid, sugg, state, msgs, seq):
@@ -1918,7 +1953,7 @@ def review_tab(cid):
     thread_view(tid, cid)
 
 
-def thread_view(tid, cid, on_text=None):
+def thread_view(tid, cid, on_text=None, on_drop=None):
     """One thread: welcome back, messages, suggestions, polling, chat box. on_text(tid, text) replaces the reply to a
     typed question while the thread has no contract (the in-tab chat binds the thread to one, merry_tab.py)."""
     if cid and not st.session_state.get(f"wb:{tid}"):
@@ -1926,8 +1961,6 @@ def thread_view(tid, cid, on_text=None):
         welcome_back(tid, cid)
     stopped_drops(tid)
     msgs = messages(tid)
-    if run_clicked(tid, cid, msgs):                     # D33: a suggestion clicked in the previous run
-        st.rerun()
     if cid:
         auto_title(tid, msgs)
     if not [m for m in msgs if m["p"].get("kind") != "WELCOME_BACK"]:
@@ -1939,7 +1972,6 @@ def thread_view(tid, cid, on_text=None):
     agent_msgs = [m for m in msgs if m["role"] == "AGENT" and m["type"] not in ("TOOL_TRACE", "DIVIDER")]
     last_agent_seq = agent_msgs[-1]["seq"] if agent_msgs and msgs[-1]["role"] == "AGENT" else None
     state = next_state(tid, cid, msgs) if msgs else {"busy": False}
-    sugg = next_steps(state) if last_agent_seq else []
     for m in msgs:
         if m["type"] == "DIVIDER":
             st.markdown(f"<div style='text-align:center;color:gray;margin:18px 0 6px'>── <b>{m['p'].get('label')}</b> ──</div>",
@@ -1954,8 +1986,8 @@ def thread_view(tid, cid, on_text=None):
             continue
         with st.chat_message("assistant"):
             render_message(tid, cid, m, live_letter, last_agent_seq)
-            if m["seq"] == last_agent_seq:
-                render_suggestions(tid, cid, sugg, state, msgs, m["seq"])
+            if m["seq"] == last_agent_seq and not state.get("busy"):
+                render_issues_pointer(cid)             # the chat is history only: decisions are made in Issues
     if state.get("busy"):
         poller(tid, cid, msgs)
     got = st.chat_input("Drop files here, or ask MERRY" + (f" about {cid}" if cid else ""), key=f"chat:{tid}",
@@ -1964,7 +1996,7 @@ def thread_view(tid, cid, on_text=None):
         text = (got.text if hasattr(got, "text") else str(got)) or ""
         files = list(got.files) if hasattr(got, "files") and got.files else []
         if files:
-            drop_files(tid, text.strip(), files)
+            (on_drop or drop_files)(tid, text.strip(), files)   # D37: the tab sends every upload to the Audit history
         elif text.strip():
             post(tid, "USER", "TEXT", {"text": text.strip()})
             if not cid and on_text:

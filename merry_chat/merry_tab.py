@@ -5,6 +5,8 @@
 # contract intake routing filed it under) or a question naming a contractor, invoice or contract. Ambiguous: MERRY asks
 # once. Binding re-keys the thread to <contract>#<hex> (UPDATE only, as SP_ONBOARD does for _INTAKE), so the rest is
 # the standalone app's own thread view (review.thread_view), scoped to that contract.
+# D37: uploads never go into a side chat: every drop (chat box or sidebar) goes to the contract's main thread, the
+# 📌 Audit history (upload_thread). New chats are for questions only.
 import json
 import re
 import uuid
@@ -47,6 +49,36 @@ def bind(tid, cid):
     st.session_state[f"wb:{new}"] = True               # just bound in this session: no welcome back now
     st.session_state[KEY] = new
     return new
+
+
+def upload_thread(current=None):
+    """D37: every upload goes to a contract's main thread (📌 Audit history), never into a side chat. No contract yet:
+    the pre-contract thread, which becomes the first contract's Audit history when the contract is read (after_onboard).
+    One contract: its thread. Several: the contract the current chat is about, else the one with the latest activity."""
+    cs = all_contracts()
+    if not cs:
+        return review.INTAKE
+    if len(cs) == 1:
+        return cs[0]
+    c = (current or "").split("#", 1)[0]
+    if c in cs:
+        return c
+    r = q("""SELECT contract_id FROM MERRY.APP.THREADS WHERE ARRAY_CONTAINS(contract_id::VARIANT, PARSE_JSON(?))
+             ORDER BY COALESCE(last_message_at, created_at) DESC LIMIT 1""", [json.dumps(cs)])
+    return r[0]["CONTRACT_ID"] if r else cs[0]
+
+
+def on_drop(tid, text, files):
+    """Files dropped in any chat's box go to the Audit history; the side chat only notes where they went."""
+    target = upload_thread(tid)
+    if target != tid:
+        if is_new(tid) and not review.messages(tid):
+            review.delete_chat(tid)                    # an empty new chat used only to drop files: nothing to keep
+        else:
+            n = len(files)
+            review.post(tid, "AGENT", "TEXT", {"text": f"Sent {n} file{'s' if n != 1 else ''} to the 📌 Audit history."})
+    st.session_state[KEY] = target
+    review.drop_files(target, text, files)
 
 
 def contracts_named(text):
@@ -119,24 +151,6 @@ def pending_choice(msgs):
     return None
 
 
-def bind_from_uploads(tid, msgs):
-    """After intake has sorted an unbound chat's drops: bind to the one contract the files were filed under (or that a
-    dropped contract became; a re-dropped duplicate still names its contract); several contracts: ask once."""
-    batches = review.thread_batches(msgs)
-    if not batches or review.next_state(tid, None, msgs).get("busy"):
-        return None
-    cs = sorted({r["CONTRACT_ID"] for r in q("""SELECT DISTINCT contract_id FROM MERRY.APP.UPLOADS
-                    WHERE ARRAY_CONTAINS(batch_id::VARIANT, PARSE_JSON(?)) AND contract_id IS NOT NULL
-                      AND intake_status IN ('FILED', 'CONTRACT', 'DUPLICATE')""", [json.dumps(batches)])})
-    if len(cs) == 1:
-        return bind(tid, cs[0])
-    if len(cs) > 1 and not any(m["p"].get("kind") == "CHOOSE_CONTRACT" for m in msgs):
-        review.post(tid, "AGENT", "TEXT", {"kind": "CHOOSE_CONTRACT", "options": cs, "question": None,
-                                           "text": "These files belong to more than one contract. Which one should "
-                                                   "this chat follow? (The files are filed under their own contracts either way.)"})
-    return None
-
-
 def choice_buttons(tid, p):
     st.caption("Pick the contract for this chat:")
     cols = st.columns(min(len(p["options"]), 4))
@@ -180,14 +194,10 @@ def feed_uploads(files, note="Added from the sidebar"):
     files = list(files or [])
     if not files:
         return 0, []
-    tid = st.session_state.get(KEY)
-    if not tid or not q("SELECT 1 FROM MERRY.APP.THREADS WHERE thread_id = ?", [tid]):
-        tid = st.session_state[KEY] = new_chat()
+    tid = st.session_state[KEY] = upload_thread(st.session_state.get(KEY))   # D37: uploads go to the Audit history
     csvs = [f for f in files if f.name.lower().endswith(".csv")]
     pdfs = [f for f in files if f.name.lower().endswith(".pdf")]
-    msgs, stale = review.load_site_csvs(tid, csvs, note) if csvs else ([], set())
-    if is_new(tid) and len(stale) == 1:               # the chat follows the contract whose audit is now out of date
-        tid = bind(tid, next(iter(stale)))
+    msgs, _ = review.load_site_csvs(tid, csvs, note) if csvs else ([], set())
     if pdfs:
         review.drop_files(tid, note, pdfs)
     return len(pdfs), msgs
@@ -197,7 +207,9 @@ def render():
     load_labels(review.qd)
     ids = {t["THREAD_ID"]: t["CONTRACT_ID"] for t in chats()}
     tid = st.session_state.get(KEY)
-    if tid not in ids:
+    if tid == review.INTAKE and all_contracts():      # the pre-contract thread became the contract's Audit history
+        tid = st.session_state[KEY] = upload_thread()
+    if tid != review.INTAKE and tid not in ids:
         tid = st.session_state[KEY] = next(iter(ids), None) or new_chat()
         ids = ids or {tid: NEW}
     left, right = st.columns([1, 3])
@@ -205,13 +217,8 @@ def render():
         st.markdown("**Chats**")
         history(tid)
     with right:
-        cid = None if is_new(tid) else (ids.get(tid) or tid.split("#", 1)[0])
-        if cid is None:
-            msgs = review.messages(tid)
-            new = bind_from_uploads(tid, msgs)
-            if new:
-                st.rerun()
-        review.thread_view(tid, cid, on_text=on_text if cid is None else None)
+        cid = None if is_new(tid) or tid == review.INTAKE else (ids.get(tid) or tid.split("#", 1)[0])
+        review.thread_view(tid, cid, on_text=on_text if is_new(tid) else None, on_drop=on_drop)
         if cid is None:
             p = pending_choice(review.messages(tid))
             if p:

@@ -21,7 +21,7 @@ none of MERRY's objects and no data.
 ### 0.1 Put the code in a workspace
 In Snowsight: **Projects > Workspaces**, then either:
 - **From Git repository**, pointing at the repository that holds this code, or
-- create an empty workspace and **upload** the code (unzip it first, keeping the folder structure).
+- create an empty shared workspace name it MERRY and **upload** the code (unzip it first, keeping the folder structure).
 
 The root of the workspace should contain `AGENTS.md`, `SETUP.md`, `README.md`, `settings.py`,
 `streamlit_app.py` and the `merry_agent/` folder.

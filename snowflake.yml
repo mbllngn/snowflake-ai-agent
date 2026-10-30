@@ -3,13 +3,42 @@ definition_version: 2
 entities:
   streamlit_app:
     type: streamlit
+    meta:
+      use_mixins:
+        - streamlit_shared
     identifier: MERRY.APP.MERRY
+mixins:
+  streamlit_shared:
+    title: MERRY
+    query_warehouse: MERRY_WH
+    compute_pool: SYSTEM_COMPUTE_POOL_CPU
+    grants:
+      - privilege: USAGE
+        role: ACCOUNTADMIN
+        with_grant_option: false
+      - privilege: USAGE
+        role: MERRY_APP
+        with_grant_option: true
+      - privilege: USAGE
+        role: ORGADMIN
+        with_grant_option: false
+      - privilege: USAGE
+        role: PUBLIC
+        with_grant_option: false
+      - privilege: USAGE
+        role: SECURITYADMIN
+        with_grant_option: false
+      - privilege: USAGE
+        role: SYSADMIN
+        with_grant_option: false
+      - privilege: USAGE
+        role: USERADMIN
+        with_grant_option: false
     main_file: streamlit_app.py
-    title: "MERRY"
-    query_warehouse: "MERRY_WH"
-    compute_pool: "SYSTEM_COMPUTE_POOL_CPU"
     artifacts:
       - pyproject.toml
       - streamlit_app.py
       - dashboard.py
+      - audit_rules.py
+      - ingest.py
       - merry_chat/

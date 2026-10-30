@@ -1,0 +1,168 @@
+"""Step 5 - Dashboard widgets. Display only: every function receives data that is already loaded."""
+
+import pandas as pd
+import streamlit as st
+
+STATUSES = ["OPEN", "CONFIRMED", "RECOVERED", "DISMISSED"]
+
+from audit_rules import RULE_INFO  # noqa: E402  (one copy: streamlit_app.py fills in MERRY's rule names there)
+
+
+def _num(value) -> float:
+    """A number from SQL or pandas; None, NaN or text that is not a number count as 0."""
+    v = pd.to_numeric(value, errors="coerce")
+    return 0.0 if pd.isna(v) else float(v)
+
+
+def _int(value) -> int:
+    return int(_num(value))
+
+
+def _php(value) -> str:
+    return f"₱{_num(value):,.2f}"
+
+
+def show_dashboard(kpis: pd.DataFrame, flags: pd.DataFrame, has_contracts: bool, empty_msg: str) -> None:
+    """The Dashboard tab. With no contracts there is nothing to count: only the empty-state message."""
+    if not has_contracts:
+        st.info(empty_msg)
+        return
+    show_kpis(kpis, flags)
+    st.divider()
+    show_issue_breakdown(flags)
+    st.divider()
+    show_charts(flags)
+
+
+def show_kpis(kpi: pd.DataFrame, flags: pd.DataFrame | None = None) -> None:
+    """Top row of metric cards, from AUDIT.KPI_SUMMARY."""
+    if kpi.empty:
+        st.info("No KPI data yet - click **Submit** in the sidebar.")
+        return
+    k = kpi.iloc[0]
+    c = st.columns(5)
+    c[0].metric("📄 Documents reviewed", _int(k["DOCS_REVIEWED"]))
+    c[1].metric("💰 Spend reviewed", _php(k["SPEND_REVIEWED"]), help="Sum of invoice TOTAL DUE (incl. VAT)")
+    c[2].metric("⚠️ Potential issues", _php(k["POTENTIAL_ISSUES"]),
+                delta=f"{_int(k['OPEN_FLAGS'])} open flags", delta_color="off",
+                help="Peso value of open flags. Flags with no peso value (e.g. hours mismatches) are still counted in open flags")
+    c[3].metric("✅ Confirmed issues", _php(k["CONFIRMED_ISSUES"]), help="Flags a reviewer marked CONFIRMED or RECOVERED")
+    c[4].metric("🔄 Recovered", _php(k["RECOVERED"]), help="Flags a reviewer marked RECOVERED")
+
+
+def show_charts(flags: pd.DataFrame) -> None:
+    """Impact and flag counts by rule and contractor."""
+    active = flags[flags["STATUS"] != "DISMISSED"]
+    if active.empty:
+        st.success("No issues found 🎉")
+        return
+    left, right = st.columns(2)
+    with left:
+        st.markdown("**Flags by issue type**")
+        st.bar_chart(active.groupby("RULE")["FLAG_ID"].count().sort_values(ascending=False), horizontal=True)
+    with right:
+        st.markdown("**Flags by contractor**")
+        st.bar_chart(active.groupby("CONTRACTOR_CODE", dropna=False)["FLAG_ID"].count())
+
+
+def show_issue_breakdown(flags: pd.DataFrame) -> None:
+    """Why is there a potential issue? One row per issue type, then the flags behind each one.
+
+    Uses OPEN flags only, so the total matches the 'Potential issues' card.
+    """
+    open_flags = flags[flags["STATUS"] == "OPEN"].copy()
+    for col in ("IMPACT_PHP", "BILLED_VALUE", "ACTUAL_VALUE"):   # Snowflake NUMBER -> Decimal; make it float
+        open_flags[col] = pd.to_numeric(open_flags[col], errors="coerce")
+    st.subheader("🔎 Why there are potential issues")
+    if open_flags.empty:
+        st.success("No open issues.")
+        return
+
+    total = _num(open_flags["IMPACT_PHP"].fillna(0).sum())
+    summary = (open_flags.groupby("RULE")
+               .agg(Severity=("SEVERITY", "first"), Flags=("FLAG_ID", "count"),
+                    Contractors=("CONTRACTOR_CODE", lambda s: ", ".join(sorted(s.dropna().unique()))),
+                    Documents=("SOURCE_DOC", "nunique"), Impact=("IMPACT_PHP", lambda s: s.fillna(0).sum()))
+               .reset_index().sort_values(["Impact", "Flags"], ascending=False))
+    summary["Share"] = summary["Impact"] / total * 100 if total else 0.0
+    summary["Why it is an issue"] = summary["RULE"].map(lambda r: RULE_INFO.get(r, ("", "", ""))[0])
+    summary["Contract basis"] = summary["RULE"].map(lambda r: RULE_INFO.get(r, ("", "", ""))[1])
+    summary["What to check"] = summary["RULE"].map(lambda r: RULE_INFO.get(r, ("", "", ""))[2])
+
+    st.dataframe(
+        summary, hide_index=True, width="stretch",
+        column_order=["RULE", "Severity", "Flags", "Contractors", "Documents", "Impact", "Share",
+                      "Why it is an issue", "Contract basis", "What to check"],
+        column_config={
+            "RULE": st.column_config.TextColumn("Issue type"),
+            "Impact": st.column_config.NumberColumn("Overbilled / at risk (PHP)", format="₱%.2f",
+                                                    help="Amount that can be rejected or recovered - not the amount billed"),
+            "Share": st.column_config.ProgressColumn("% of potential", format="%.0f%%", min_value=0, max_value=100),
+            "Why it is an issue": st.column_config.TextColumn(width="large"),
+            "What to check": st.column_config.TextColumn(width="large"),
+        },
+    )
+    no_peso = int(open_flags["IMPACT_PHP"].isna().sum())
+    if no_peso:
+        st.caption(f"{no_peso} flag(s) have no peso impact yet (e.g. hours mismatches on per-load billing) - "
+                   "they still need review but add ₱0 to the total.")
+
+    # Detail: the individual flags behind each issue type
+    for rule in summary["RULE"]:
+        rows = open_flags[open_flags["RULE"] == rule]
+        impact = _num(rows["IMPACT_PHP"].fillna(0).sum())
+        with st.expander(f"{rule} - {len(rows)} flag(s), {_php(impact)}"):
+            st.dataframe(
+                rows[["CONTRACTOR_CODE", "SOURCE_DOC", "TICKET_NO", "SUBJECT", "WORK_DATE",
+                      "BILLED_VALUE", "ACTUAL_VALUE", "IMPACT_PHP", "REASON"]],
+                hide_index=True, width="stretch",
+                column_config={
+                    "CONTRACTOR_CODE": st.column_config.TextColumn("Contractor"),
+                    "SOURCE_DOC": st.column_config.TextColumn("Document"),
+                    "TICKET_NO": st.column_config.TextColumn("Ticket"),
+                    "SUBJECT": st.column_config.TextColumn("Person / item"),
+                    "WORK_DATE": st.column_config.DateColumn("Date"),
+                    "BILLED_VALUE": st.column_config.NumberColumn(
+                        "Billed", help="What the contractor billed or recorded (PHP, hours, days or tonnes)"),
+                    "ACTUAL_VALUE": st.column_config.NumberColumn(
+                        "Allowed / actual", help="What the contract or site records support"),
+                    "IMPACT_PHP": st.column_config.NumberColumn(
+                        "Overbilled (PHP)", format="₱%.2f", help="Billed minus allowed, in pesos"),
+                    "REASON": st.column_config.TextColumn("Reason", width="large"),
+                },
+            )
+
+
+def filter_flags(flags: pd.DataFrame) -> pd.DataFrame:
+    """Filter widgets (applied in pandas, no SQL built from user input)."""
+    c1, c2, c3 = st.columns(3)
+    contractors = c1.multiselect("Contractor", sorted(flags["CONTRACTOR_CODE"].dropna().unique()))
+    rules = c2.multiselect("Issue type", sorted(flags["RULE"].unique()))
+    statuses = c3.multiselect("Status", STATUSES, default=["OPEN", "CONFIRMED"])
+    out = flags
+    if contractors:
+        out = out[out["CONTRACTOR_CODE"].isin(contractors)]
+    if rules:
+        out = out[out["RULE"].isin(rules)]
+    if statuses:
+        out = out[out["STATUS"].isin(statuses)]
+    return out
+
+
+def show_flag_table(flags: pd.DataFrame):
+    """Issue breakdown table. Returns the selected flag row (or None)."""
+    cols = ["RULE", "SEVERITY", "CONTRACTOR_CODE", "SOURCE_DOC", "TICKET_NO", "SUBJECT", "WORK_DATE",
+            "BILLED_VALUE", "ACTUAL_VALUE", "IMPACT_PHP", "STATUS", "REASON"]
+    event = st.dataframe(
+        flags[cols], hide_index=True, width="stretch",
+        on_select="rerun", selection_mode="single-row",
+        column_config={
+            "BILLED_VALUE": st.column_config.NumberColumn("Billed"),
+            "ACTUAL_VALUE": st.column_config.NumberColumn("Allowed / actual"),
+            "IMPACT_PHP": st.column_config.NumberColumn("Overbilled (PHP)", format="₱%.2f"),
+            "WORK_DATE": st.column_config.DateColumn("Date"),
+            "REASON": st.column_config.TextColumn("Reason", width="large"),
+        },
+    )
+    rows = event.selection.rows
+    return flags.iloc[rows[0]] if rows else None
