@@ -62,7 +62,8 @@ def main():
         else:
             k.execute(f"USE ROLE {role}")
             k.execute("USE SECONDARY ROLES NONE")
-        k.execute(f"USE WAREHOUSE {WAREHOUSE}")
+        if who.get("wh"):   # the warehouse only exists once step 1 has created it
+            k.execute(f"USE WAREHOUSE {WAREHOUSE}")
         who["now"] = owner
 
     def run(owner, sql, label=None):
@@ -89,6 +90,8 @@ def main():
               f"CREATE ROLE IF NOT EXISTS {role}",
               f"GRANT ROLE {role} TO ROLE ACCOUNTADMIN"]:
         run("ADMIN", s)
+    k.execute(f"USE WAREHOUSE {WAREHOUSE}")
+    who["wh"] = True
 
     grants = blocks(os.path.join(HERE, "sql", "95_grants.sql"), db)
     early = [g for g in grants if re.search(r" ON (ACCOUNT|DATABASE|SCHEMA|WAREHOUSE|STAGE|FUTURE) |DATABASE ROLE", g[1])]
